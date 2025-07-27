@@ -2,9 +2,11 @@
   "name": "project-nodejs",
   "version": "1.0.0",
   "description": "learn nodejs",
-  "main": "node.js",
+  "main": "dist/node.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "tsc && node dist/node.js",
+    "dev": "tsc && node dist/node.js"
   },
   "repository": {
     "type": "git",
