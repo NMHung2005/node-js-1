@@ -1,0 +1,24 @@
+{
+  "name": "project-nodejs",
+  "version": "1.0.0",
+  "description": "learn nodejs",
+  "main": "node.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NMHung2005/node-js-1.git"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "mongodb"
+  ],
+  "author": "Hung.NM",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NMHung2005/node-js-1/issues"
+  },
+  "homepage": "https://github.com/NMHung2005/node-js-1#readme"
+}
