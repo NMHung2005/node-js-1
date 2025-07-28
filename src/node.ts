@@ -1,6 +1,7 @@
 //const express = require("express");
 import express from "express";
-const PORT = 8080;
+import 'dotenv/config';
+const PORT = process.env.PORT || 8080;
 const app = express();
 
 app.get("/", (req, res) => {
@@ -13,4 +14,5 @@ app.get("/abc", (req, res) => {
 
 app.listen(PORT, () => {
     console.log(`My app is running on port ${PORT}`);
+    console.log(`env port ${process.env.PORT}`)
 })
