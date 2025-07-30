@@ -2,6 +2,7 @@ import express from "express";
 import 'dotenv/config';
 import webRoute from "./routes/web";
 
+
 const PORT = process.env.PORT || 8080;
 const app = express();
 
@@ -18,6 +19,8 @@ app.use(express.static('public'));
 
 //config routes
 webRoute(app);
+
+
 
 app.listen(PORT, () => {
     console.log(`My app is running on port ${PORT}`);
