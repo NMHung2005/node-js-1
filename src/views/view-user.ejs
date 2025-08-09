@@ -17,6 +17,7 @@
     <div style="width: 600px; margin: auto">
         <h3 style="padding: 10px 0">View user details id = <%= users.id%>:</h3>
         <form action="/handle-update-user" , method="post">
+            <input style="display: none;" name="id" value="<%= users.id%>">
             <div class="mb-3">
                 <label class="form-label">Name </label>
                 <input value="<%= users.name%>" name="fullName" type="text" class="form-control"
@@ -28,7 +29,7 @@
                     placeholder="name@example.com">
             </div>
             <div class="mb-3">
-                <label class="form-label">Address <%= users.address%></label>
+                <label class="form-label">Address</label>
                 <textarea name="address" class="form-control" rows="2"><%= users.address%></textarea>
             </div>
             <div class="mb-3">

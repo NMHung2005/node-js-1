@@ -1,57 +1,62 @@
-import getConnection from "../config/db";
+import getConnection from "config/db";
+import { prisma } from "config/client";
+
 
 const handleCreateUser = async (
     fullName: string,
     email: string,
     address: string) => {
+
     //insert into database
-    const connection = await getConnection();
-    try {
-        const sql = 'INSERT INTO `users`(`name`, `email`, `address`) VALUES (?, ?, ?)';
-        const values = [fullName, email, address];
-        const [result, fields] = await connection.execute(sql, values);
-        return result;
-    } catch (err) {
-        console.log(err);
-        return [];
-    }
+
+    const createUser = await prisma.user.create({
+        data: {
+            username: fullName,
+            address: address,
+            fullName: email,
+            password: "",
+            accountType: ""
+        }
+    })
+    return createUser;
 }
+
 const getAllUsers = async () => {
-    const connection = await getConnection();
-    // A simple SELECT query
-    try {
-        const [results, fields] = await connection.query(
-            'SELECT * FROM `users`'
-        );
-        return results;
-    } catch (err) {
-        console.log(err);
-        return [];
-    }
+    const allUser = await prisma.user.findMany();
+    return allUser;
 }
+
+const getAllRoles = async () => {
+    const roles = await prisma.role.findMany();
+    return roles;
+}
+
 const handleDeleteUser = async (id: string) => {
-    const connection = await getConnection();
-    try {
-        const sql = 'DELETE FROM `users` WHERE `id` = ?';
-        const values = [id];
-        const [result, fields] = await connection.execute(sql, values);
-        return result;
-    } catch (err) {
-        console.log(err);
-        return [];
-    }
+    const deleteUser = await prisma.user.delete({
+        where: { id: +id }
+    })
+    return deleteUser;
 }
 const getUserById = async (id: string) => {
-    const connection = await getConnection();
-    // A simple SELECT query
-    try {
-        const sql = 'SELECT * FROM `users` WHERE `id` = ?';
-        const values = [id];
-        const [result, fields] = await connection.execute(sql, values);
-        return result[0];
-    } catch (err) {
-        console.log(err);
-        return [];
-    }
+    const user = await prisma.user.findUnique({
+        where: { id: +id }
+    })
+    return user;
 }
-export { handleCreateUser, getAllUsers, handleDeleteUser, getUserById };
+const updateUserById = async (id: string, fullName: string, email: string, address: string) => {
+    const updateUser = await prisma.user.update({
+        where: { id: +id },
+        data: {
+            username: fullName,
+            address: address,
+            fullName: email,
+            password: "",
+            accountType: ""
+        }
+    })
+    return updateUser;
+}
+export {
+    handleCreateUser, getAllUsers, handleDeleteUser,
+    getUserById, updateUserById, getAllRoles
+};
