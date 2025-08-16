@@ -6,12 +6,16 @@ const saltRounds = 10;
 const hashPassword = async (plainText: string) => {
     return await bcrypt.hash(plainText, saltRounds);
 }
+const comparePassword = async (plainText: string, hashPassword: string) => {
+    return await bcrypt.compare(plainText, hashPassword);
+}
 const handleCreateUser = async (
     fullName: string,
     email: string,
     address: string,
     phone: string,
-    avatar: string
+    avatar: string,
+    role: string
 ) => {
     const defaultPassword = await hashPassword("123456");
     //insert into database
@@ -23,7 +27,8 @@ const handleCreateUser = async (
             password: defaultPassword,
             accountType: ACCOUNT_TYPE.SYSTEM,
             phone: phone,
-            avatar: avatar
+            avatar: avatar,
+            roleId: +role
         }
     })
     return createUser;
@@ -51,20 +56,21 @@ const getUserById = async (id: string) => {
     })
     return user;
 }
-const updateUserById = async (id: string, fullName: string, email: string, address: string) => {
+
+const updateUserById = async (id: string, fullName: string, phone: string, role: string, address: string, avatar: string) => {
     const updateUser = await prisma.user.update({
         where: { id: +id },
         data: {
-            username: fullName,
+            fullName: fullName,
             address: address,
-            fullName: email,
-            password: "",
-            accountType: ""
+            phone: phone,
+            roleId: +role,
+            ...(avatar !== undefined && { avatar: avatar })
         }
     })
     return updateUser;
 }
 export {
     handleCreateUser, getAllUsers, handleDeleteUser,
-    getUserById, updateUserById, getAllRoles, hashPassword
+    getUserById, updateUserById, getAllRoles, hashPassword, comparePassword
 };
