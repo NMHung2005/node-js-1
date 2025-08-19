@@ -8,6 +8,7 @@ import {
 
 const getHomepage = async (req: Request, res: Response) => {
     const products = await getProducts();
+    const user = req.user;
     return res.render('client/home/show.ejs', {
         products
     });

@@ -1,8 +1,10 @@
-import { Role, User } from '@prisma/client'
+import { role, user as UserPrisma } from '@prisma/client'
+import { number } from 'zod'
 declare global {
     namespace Express {
-        interface User extends User {
-            role?: Role
+        interface User extends UserPrisma {
+            role?: Role,
+            sumCart?: number
         }
     }
 }
